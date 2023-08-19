@@ -21,17 +21,11 @@ const CreateUsernamePage = () => {
     return lowercaseInput === input && numCount >= 3;
   };
 
-  // input change event handler
   const handleInputChange = (e) => {
-    const inputValue = e.target.value; // refers to HTML element triggered the event and value retrieves current value of the input field
-
-    // stat is kept in sync w/ input value
-    setName(inputValue); // updates name state variable w/ current value of input field
-
-    // updates isButtonDisables state variable
+    const inputValue = e.target.value;
+    setName(inputValue);
     setIsButtonDisabled(!validateInput(inputValue));
 
-    // checks for empty input
     if (inputValue.trim() === "") {
       setErrorMessage(""); // Clear error message when input is empty
     } else if (!validateInput(inputValue)) {
@@ -39,9 +33,7 @@ const CreateUsernamePage = () => {
         "Username must be all lowercase with at least three numbers."
       );
     } else {
-      // if the input value is not empty
-      // meet the validation criteria
-      setErrorMessage("");
+      setErrorMessage(""); // Clear error message when input meets the criteria
     }
   };
 
@@ -53,15 +45,16 @@ const CreateUsernamePage = () => {
         name,
         password,
       });
+      console.log(response.data);
 
       if (response.data.exists) {
-        setErrorMessage("Username is already taken. Please choose another.");
+        setErrorMessage(response.data.message);
       } else {
         navigate("/login");
       }
     } catch (error) {
       console.error("Error registering user:", error);
-      setErrorMessage("An error occurred while registering. Please try again.");
+      setErrorMessage("An error occurred while registering.");
     }
   };
 
@@ -95,6 +88,10 @@ const CreateUsernamePage = () => {
               name="password"
               onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+
+          <div className="error-message">
+            {errorMessage && <p className="error-text">{errorMessage}</p>}
           </div>
 
           <button type="submit" disabled={isButtonDisabled}>
