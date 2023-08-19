@@ -38,6 +38,21 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  const { name, password } = req.body;
+  try {
+    const user = await userModel.findOne({ name, password });
+    if (user) {
+      res.json("Success");
+    } else {
+      res.json("Invalid credentials");
+    }
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "An error occurred" });
+  }
+});
+
 // defines an API Endpoint to check if a username exists
 app.get("/checkUsername", async (req, res) => {
   const { username } = req.query;
