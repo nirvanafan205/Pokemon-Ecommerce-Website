@@ -1,7 +1,4 @@
-// importing React and ReactDOM libraryies 
-// Used to create react components and rendering components into the DOM
-// BrowserRouter, Routes, and Route is used for client-side routing
-// LandingPage, LoginPage, CreateUsernamePage is imported to be rendered
+// importing React and ReactDOM libraries
 import React from "react";
 import ReactDOM from "react-dom"; // Correct the import statement
 import LandingPage from "./LandingPage";
@@ -14,12 +11,8 @@ import CreateUsernamePage from "./CreateUsernamePage";
 const App = () => {
   return (
     // BrowserRouter used to enable client-side routing
-    // Allows to make routes for different URLS w/o a full page refresh
     <BrowserRouter>
-
-      { /* Defined different routes useing the Route component*/}
-      { /* Each route has a specific path prop that corresponds to URL*/}
-      { /* prop is used to specify the component to render when the URL matches the given path*/}
+      {/* Defined different routes useing the Route component*/}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
